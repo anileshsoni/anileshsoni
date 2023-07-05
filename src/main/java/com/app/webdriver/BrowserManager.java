@@ -1,38 +1,42 @@
 package com.app.webdriver;
 
-import java.util.concurrent.TimeUnit;
-
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+
+import com.app.utility.FrameworkConstants;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class BrowserManager {
 	
-	WebDriver browser = null;
-
-	
 	public WebDriver createDriver(String browserType) {
 		
 		if(browserType == "chrome") {
 			WebDriverManager.chromedriver().setup();
-			browser = new ChromeDriver();	
+			FrameworkConstants.browser = new ChromeDriver();	
 		}
 		if(browserType == "firefox") {
 			WebDriverManager.firefoxdriver().setup();
-			browser = new ChromeDriver();	
+			FrameworkConstants.browser = new ChromeDriver();	
 		}
 		if(browserType == "ie") {
 			WebDriverManager.iedriver().setup();
-			browser = new ChromeDriver();	
+			FrameworkConstants.browser = new ChromeDriver();	
 		}
 		if(browserType == "opera") {
 			WebDriverManager.operadriver().setup();
-			browser = new ChromeDriver();	
+			FrameworkConstants.browser = new ChromeDriver();	
 		}
-		browser.manage().window().maximize();
-		return browser;
+		FrameworkConstants.browser.manage().window().maximize();
+		return FrameworkConstants.browser;
 	}
 	
+	public WebDriver openURL(String url) {
+		if(!url.isBlank())
+			FrameworkConstants.browser.get(url);
+		else
+			System.out.println("no url found");
+		return FrameworkConstants.browser;
+	}
 	
 }
